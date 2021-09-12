@@ -77,7 +77,7 @@ def delete_book():
         print("Error: Book Not Found")
 
 def quit_program():
-    ui.message('Thanks and bye!')
+    ui.message('Thanks for using the book reading list - happy reading!')
 
 
 if __name__ == '__main__':
