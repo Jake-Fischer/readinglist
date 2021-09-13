@@ -66,7 +66,6 @@ def change_read():
     new_read = ui.get_read_value()  
     book.read = new_read    
     book.save()
-    # ui.get_read_value() returns a True value if the user responds 'read' and False for 'not-read' 
     if new_read == True:
         print(f'You have read {book.title} by {book.author}')
     else:
