@@ -28,7 +28,7 @@ def create_menu():
     menu.add_option('5', 'Show All Books', show_all_books)
     menu.add_option('6', 'Change Book Read Status', change_read)
     menu.add_option('7', 'Delete a Book', delete_book)
-    menu.add_option('8','Show total Book Count', book_count)
+    menu.add_option('8','Show Total Book Count', book_count)
     menu.add_option('Q', 'Quit', quit_program)
 
     return menu
@@ -80,7 +80,10 @@ def delete_book():
 
 def book_count():
     count = store.book_count()
-    print(f'There are {count} book(s) in the database.')
+    if count==1:
+        print('There is one book in the database')
+    else:
+        print(f'There are {count} books in the database.')
 
 def quit_program():
     ui.message('Thanks and bye!')
