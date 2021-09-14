@@ -63,23 +63,25 @@ def search_book():
 def change_read():
     book_id = ui.get_book_id()
     book = store.get_book_by_id(book_id)  
-    new_read = ui.get_read_value()  
-    book.read = new_read    
-    book.save()
-    if new_read == True:
-        print(f'You have read {book.title} by {book.author}')
+    if book:
+        new_read = ui.get_read_value()  
+        book.read = new_read    
+        book.save()
+        if new_read == True:
+            print(f'You have read {book.title} by {book.author}')
+        else:
+            print(f'You have not read {book.title} by {book.author}')
     else:
-        print(f'You have not read {book.title} by {book.author}')
-    
+        print("Error: Book Not Found")
+
 
 def delete_book():
     try:
         book_id = ui.get_book_id()
         book = store.get_book_by_id(book_id) 
         book.delete()
-    except :
+    except:
         print("Error: Book Not Found")
-
 
 
 def book_count():
