@@ -74,6 +74,7 @@ def change_read():
     else:
         print("Error: Book Not Found")
 
+
 def delete_book():
     try:
         book_id = ui.get_book_id()
