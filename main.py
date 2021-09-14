@@ -79,7 +79,7 @@ def delete_book():
         book_id = ui.get_book_id()
         book = store.get_book_by_id(book_id) 
         book.delete()
-    except :
+    except:
         print("Error: Book Not Found")
 
 
