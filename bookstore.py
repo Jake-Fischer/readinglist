@@ -7,7 +7,7 @@ class Book:
 
     """ Represents one book in the program. 
     Before books are saved, create without ID then call save() method to save to DB and create an ID. 
-    Future calls to save() will update the database record for the book with this id. """
+    Future calls to save() will update the database record for the book with this ID. """
 
     def __init__(self, title, author, read=False, id=None):
         self.title = title 
@@ -109,8 +109,8 @@ class BookStore:
 
 
         def _update_book(self, book):
-            """ Updates the information for a book. Assumes id has not changed and updates author, title and read values
-            Raises BookError if book does not have id
+            """ Updates the information for a book. Assumes ID has not changed and updates author, title and read values
+            Raises BookError if book does not have ID
             :param book the Book to update 
             """
             if not book.id:
@@ -125,7 +125,7 @@ class BookStore:
             con.close()
             
             if rows_modfied == 0:
-                raise BookError(f'Book with id {book.id} not found')
+                raise BookError(f'Book with ID {book.id} not found')
 
             
         def _delete_book(self, book):
@@ -142,7 +142,7 @@ class BookStore:
             con.close()
 
             if deleted_count == 0:
-                raise BookError(f'Book with id {id} not found in store.')
+                raise BookError(f'Book with ID {id} not found in store.')
 
 
         def delete_all_books(self):
@@ -174,7 +174,7 @@ class BookStore:
 
         def get_book_by_id(self, id):
             """ Searches list for Book with given ID,
-            :param id the ID to search for
+            :param ID the ID to search for
             :returns the book, if found, or None if book not found.
             """
             get_book_by_id_sql = 'SELECT rowid, * FROM books WHERE rowid = ?'
