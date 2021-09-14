@@ -1,6 +1,5 @@
 """ Program to create and manage a list of books that the user wishes to read, and books that the user has read. """
 
-from bookstore import BookError
 from bookstore import Book, BookStore
 from menu import Menu
 import ui
@@ -8,7 +7,6 @@ import ui
 store = BookStore()
 
 def main():
-
     menu = create_menu()
 
     while True:
@@ -63,7 +61,6 @@ def search_book():
 
 
 def change_read():
-
     book_id = ui.get_book_id()
     book = store.get_book_by_id(book_id)  
     new_read = ui.get_read_value()  
@@ -74,14 +71,15 @@ def change_read():
     else:
         print(f'You have not read {book.title} by {book.author}')
     
-def delete_book():
 
+def delete_book():
     try:
         book_id = ui.get_book_id()
         book = store.get_book_by_id(book_id) 
         book.delete()
     except :
         print("Error: Book Not Found")
+
 
 
 def book_count():
