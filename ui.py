@@ -7,7 +7,7 @@ def display_menu_get_choice(menu):
      :returns: the user's choice """
     while True:
         print(menu)
-        choice = input('Enter choice? ').capitalize()
+        choice = input('Enter choice? ').lower()
         if menu.is_valid(choice):
             return choice
         else:
