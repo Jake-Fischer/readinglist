@@ -30,7 +30,7 @@ def show_books(books):
             print(book)
         print('\n')
     else:
-        print('No books to display')
+        print('\nNo books to display\n')
 
 
 def get_book_info():
