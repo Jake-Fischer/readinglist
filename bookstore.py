@@ -19,6 +19,13 @@ class Book:
 
 
     def save(self):
+        """
+        when called, Checks if an ID of a book was entered. 
+        If the user entered a velid ID, the save function will call
+        the update_book function to update the database record forthat book.
+        . If in ID was passed, it will call the add-book function to create_book
+         a new book record and assign the next avalable ID to the record 
+        """
         if self.id:
             self.bookstore._update_book(self)
         else:
