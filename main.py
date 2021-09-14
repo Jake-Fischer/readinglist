@@ -84,7 +84,6 @@ def delete_book():
         print("Error: Book Not Found")
 
 
-
 def book_count():
     count = store.book_count()
     if count==1:
