@@ -7,7 +7,7 @@ class Book:
 
     """ Represents one book in the program. 
     Before books are saved, create without ID then call save() method to save to DB and create an ID. 
-    Future calls to save() will update the database record for the book with this id. """
+    Future calls to save() will update the database record for the book with this ID. """
 
     def __init__(self, title, author, read=False, id=None):
         self.title = title 
@@ -19,6 +19,14 @@ class Book:
 
 
     def save(self):
+        """
+        When called, checks if an ID of a book was entered.
+        If the user entered a valid ID, the save function will call
+        the _update_book function to update the database record for that book.
+        If no ID was passed, it will call the _add_book function which 
+        will create a new book record and assign the next available ID to the new
+        book record. 
+        """
         if self.id:
             self.bookstore._update_book(self)
         else:
@@ -95,7 +103,6 @@ class BookStore:
             """ Adds book to store. 
             Raises BookError if a book with exact author and title (not case sensitive) is already in the store.
             :param book the Book to add """
-            
             insert_sql = 'INSERT INTO books (title, author, read) VALUES (?, ?, ?)'
 
             try: 
@@ -110,11 +117,10 @@ class BookStore:
 
 
         def _update_book(self, book):
-            """ Updates the information for a book. Assumes id has not changed and updates author, title and read values
-            Raises BookError if book does not have id
+            """ Updates the information for a book. Assumes ID has not changed and updates author, title and read values
+            Raises BookError if book does not have ID
             :param book the Book to update 
             """
-            
             if not book.id:
                 raise BookError('Book does not have ID, can\'t update')
 
@@ -127,13 +133,12 @@ class BookStore:
             con.close()
             
             if rows_modfied == 0:
-                raise BookError(f'Book with id {book.id} not found')
+                raise BookError(f'Book with ID {book.id} not found')
 
             
         def _delete_book(self, book):
             """ Removes book from store. Raises BookError if book not in store. 
             :param book the Book to delete """
-
             if not book.id:
                 raise BookError('Book does not have ID')
 
@@ -145,12 +150,11 @@ class BookStore:
             con.close()
 
             if deleted_count == 0:
-                raise BookError(f'Book with id {id} not found in store.')
+                raise BookError(f'Book with ID {id} not found in store.')
 
 
         def delete_all_books(self):
             """ Deletes all books from database """
-
             delete_all_sql = "DELETE FROM books"
 
             with sqlite3.connect(db) as con:
@@ -164,7 +168,6 @@ class BookStore:
             """ Searches bookstore for a book with exact same title and author. Not case sensitive.
              :param search_book: the book to search for
              :returns: True if a book with same author and title are found in the store, False otherwise. """
-            
             find_exact_match_sql = 'SELECT * FROM books WHERE UPPER(title) = UPPER(?) AND UPPER(author) = UPPER(?)'
             
             con = sqlite3.connect(db)
@@ -179,10 +182,9 @@ class BookStore:
 
         def get_book_by_id(self, id):
             """ Searches list for Book with given ID,
-            :param id the ID to search for
+            :param ID the ID to search for
             :returns the book, if found, or None if book not found.
             """
-         
             get_book_by_id_sql = 'SELECT rowid, * FROM books WHERE rowid = ?'
 
             con = sqlite3.connect(db) 
@@ -192,7 +194,9 @@ class BookStore:
             
             if book_data:
                 book = Book(book_data['title'], book_data['author'], book_data['read'], book_data['rowid'])
-                    
+            else:
+                book = None
+                  
             con.close()            
             
             return book 
@@ -204,7 +208,6 @@ class BookStore:
             :param term the search term
             :returns a list of books with author or title that match the search term. The list will be empty if there are no matches.
             """
- 
             search_sql = 'SELECT rowid, * FROM books WHERE UPPER(title) like UPPER(?) OR UPPER(author) like UPPER(?)'
 
             search = f'%{term}%'   # Example - if searching for text with 'bOb' in then use '%bOb%' in SQL
@@ -227,7 +230,6 @@ class BookStore:
             :param read True to find all books that have been read, False to find all books that have not been read
             :returns all books with the read value.
             """
-
             get_book_by_id_sql = 'SELECT rowid, * FROM books WHERE read = ?'
 
             con = sqlite3.connect(db) 
@@ -247,7 +249,6 @@ class BookStore:
 
         def get_all_books(self):
             """ :returns entire book list """
-    
             get_all_books_sql = 'SELECT rowid, * FROM books'
 
             con = sqlite3.connect(db)
@@ -266,7 +267,6 @@ class BookStore:
 
         def book_count(self):
             """ :returns the number of books in the store """
-            
             count_books_sql = 'SELECT COUNT(*) FROM books'
 
             con = sqlite3.connect(db)
@@ -282,7 +282,6 @@ class BookStore:
         """ The __new__ magic method handles object creation. (Compare to __init__ which initializes an object.) 
         If there's already a Bookstore instance, return that. If not, then create a new one
         This way, there can only ever be one __Bookstore, which uses the same database. """
-        
         if not BookStore.instance:
             BookStore.instance = BookStore.__BookStore()
         return BookStore.instance
