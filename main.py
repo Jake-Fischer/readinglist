@@ -6,7 +6,7 @@ from menu import Menu
 import ui
 
 store = BookStore()
-Quit_key='q'
+
 def main():
 
     menu = create_menu()
@@ -15,7 +15,7 @@ def main():
         choice = ui.display_menu_get_choice(menu)
         action = menu.get_action(choice)
         action()
-        if choice == Quit_key:
+        if choice == 'Q':
             break
 
 
@@ -28,7 +28,7 @@ def create_menu():
     menu.add_option('5', 'Show All Books', show_all_books)
     menu.add_option('6', 'Change Book Read Status', change_read)
     menu.add_option('7', 'Delete a Book', delete_book)
-    menu.add_option(Quit_key, 'Quit', quit_program)
+    menu.add_option('Q', 'Quit', quit_program)
 
     return menu
 
