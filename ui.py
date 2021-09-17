@@ -8,10 +8,10 @@ def display_menu_get_choice(menu):
     while True:
         print(menu)
         choice = input('Enter choice? ').lower()
+        if choice == 'q':
+            return 'Q'
         if menu.is_valid(choice):
             return choice
-        if choice=='q':
-            return 'Q'
         else:
             print('Not a valid choice, try again.')
 
